@@ -22,7 +22,7 @@ public class File {
     @Column(name = "size")
     private int size;
 
-    @JsonBackReference
+    //@JsonBackReference
 //    @JsonIgnoreProperties({"files"})
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

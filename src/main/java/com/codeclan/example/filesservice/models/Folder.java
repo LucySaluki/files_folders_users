@@ -23,7 +23,7 @@ public class Folder {
     @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY)
     private List<File> files;
 
-    @JsonBackReference
+    //@JsonBackReference
 //    @JsonIgnoreProperties({"folders"})
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
