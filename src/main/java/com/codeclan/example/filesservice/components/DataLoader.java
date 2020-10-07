@@ -21,7 +21,9 @@ public class DataLoader implements ApplicationRunner {
     FileRepository fileRepository;
     public DataLoader() {
     }
-    public void run(ApplicationArguments args) {
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         User user1 = new User("Joe Bloggs");
         userRepository.save(user1);
         User user2 = new User("Fred Smith");

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class FolderController {
@@ -28,5 +29,20 @@ public class FolderController {
     public ResponseEntity<Folder> postFolder(@RequestBody Folder folder){
         folderRepository.save(folder);
         return new ResponseEntity<>(folder, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/folders/{id}")
+    public ResponseEntity<Object> updateFolder(@RequestBody Folder folder, @PathVariable Long id) {
+        Optional<Folder> folderOptional = folderRepository.findById(id);
+        if (!folderOptional.isPresent())
+            return new ResponseEntity<>(folder, HttpStatus.NOT_FOUND);
+        folder.setId(id);
+        folderRepository.save(folder);
+        return new ResponseEntity<>(folder, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/folders/{id}")
+    public void deleteFolder(@PathVariable Long id) {
+        folderRepository.deleteById(id);
     }
 }

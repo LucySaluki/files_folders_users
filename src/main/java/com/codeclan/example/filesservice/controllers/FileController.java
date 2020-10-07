@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class FileController {
@@ -28,5 +29,20 @@ public class FileController {
     public ResponseEntity<File> postFile(@RequestBody File file){
         fileRepository.save(file);
         return new ResponseEntity<>(file, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/files/{id}")
+    public ResponseEntity<Object> updateFile(@RequestBody File file, @PathVariable Long id) {
+        Optional<File> fileOptional = fileRepository.findById(id);
+        if (!fileOptional.isPresent())
+            return new ResponseEntity<>(file, HttpStatus.NOT_FOUND);
+        file.setId(id);
+        fileRepository.save(file);
+        return new ResponseEntity<>(file, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/files/{id}")
+    public void deleteFile(@PathVariable Long id) {
+        fileRepository.deleteById(id);
     }
 }
